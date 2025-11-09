@@ -2,7 +2,7 @@
   "name": "webtuyendungepu",
   "version": "1.0.0",
   "main": "index.js",
-   "scripts": {
+  "scripts": {
     "build": "tsc",
     "start": "node ./dist/app.js",
     "dev": "nodemon --watch src --ext ts --exec ts-node src/app.ts"
@@ -11,9 +11,12 @@
   "author": "",
   "license": "ISC",
   "description": "",
-    "dependencies": {
+  "dependencies": {
+    "@types/cors": "^2.8.19",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
@@ -23,6 +26,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^3.0.0",
+    "@types/cookie-parser": "^1.4.10",
     "@types/express": "^5.0.3",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/multer": "^2.0.0",
