@@ -6,6 +6,7 @@ export interface IStudent extends Document {
   className: string;
   gpa: number;
   description?: string;
+  studentId: string;
   cv?: {
     public_id: string;
     secure_url: string;
@@ -20,6 +21,11 @@ const studentSchema = new Schema<IStudent>(
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
+    },
+    studentId: {
+      type: String,
+      required: true,
+      trim: true,
     },
     major: {
       type: String,

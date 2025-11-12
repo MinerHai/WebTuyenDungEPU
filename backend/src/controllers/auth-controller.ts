@@ -43,6 +43,7 @@ export const register = async (req: Request, res: Response) => {
         className: extra.className,
         gpa: extra.gpa,
         description: extra.description || "",
+        studentId: extra.studentId,
       });
     } else if (role === "employer") {
       await Employer.create({
@@ -64,9 +65,14 @@ export const register = async (req: Request, res: Response) => {
       message: "Đăng ký thành công!",
       user: { id: user._id, username, email, role },
     });
-  } catch (error) {
+  } catch (error: any) {
     console.error("Register error:", error);
-    res.status(500).json({ message: "Lỗi server khi đăng ký" });
+    return res
+      .status(500)
+      .json({
+        message: "Lỗi server khi đăng ký thế mới ảo",
+        error: error.message,
+      });
   }
 };
 

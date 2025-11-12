@@ -1,0 +1,72 @@
+:root {
+  --primary: #0072ce;
+  --primary-dark: #005fa3;
+  --bg-light: #f9fafb;
+  --border: #e5e7eb;
+  --text: #333;
+  --radius: 10px;
+}
+
+/* Tổng thể trang */
+.create-job-page {
+  background-color: var(--bg-light);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 3rem 1rem;
+}
+
+/* Khung form trung tâm */
+.create-job-container {
+  width: 100%;
+  max-width: 700px;
+  background: #fff;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem 2.5rem;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+/* Tiêu đề & mô tả */
+.create-job-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--primary-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.create-job-subtitle {
+  color: #555;
+  margin-bottom: 1.5rem;
+  font-size: 0.95rem;
+}
+
+/* Nút quay lại */
+.back-btn {
+  margin-top: 1.5rem;
+  background: none;
+  color: var(--primary);
+  border: none;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.back-btn:hover {
+  text-decoration: underline;
+}
+
+/* Animation nhẹ khi load */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -61,8 +61,7 @@ export default function Navbar() {
         <nav className="navbar-center">
           <NavLink to="/">Việc làm</NavLink>
           <NavLink to="/employers">Nhà tuyển dụng</NavLink>
-          <NavLink to="/best-jobs">Việc làm tốt nhất</NavLink>
-          <NavLink to="/suggested-jobs">Việc làm gợi ý</NavLink>
+          <NavLink to="/jobs">Việc làm</NavLink>
           <NavLink to="/contact">Liên hệ</NavLink>
         </nav>
 
@@ -106,6 +105,10 @@ export default function Navbar() {
                 <div className="dropdown-menu">
                   <button onClick={() => navigate("/profile")}>
                     <i className="fa-regular fa-id-card"></i> Trang cá nhân
+                  </button>
+                  <button onClick={() => navigate("/employer/jobs")}>
+                    <i className="fa-regular fa-id-card"></i> Danh sách bài
+                    tuyển dụng
                   </button>
                   <button onClick={handleLogout}>
                     <i className="fa-solid fa-right-from-bracket"></i> Đăng xuất

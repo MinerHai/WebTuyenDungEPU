@@ -16,9 +16,27 @@ export default function LoginPage() {
     e.preventDefault();
     setLoading(true);
     setError("");
+
     try {
-      const res = await authApi.login({ email, password });
-      setUser(res.data.user);
+      // 1️⃣ Gửi request đăng nhập
+      await authApi.login({ email, password });
+
+      // 2️⃣ Gọi lại getProfile để lấy dữ liệu đầy đủ (user + detail)
+      const profileRes = await authApi.getProfile();
+      const { user, detail } = profileRes.data;
+
+      // 3️⃣ Gộp dữ liệu vào 1 object giống cấu trúc context cần
+      const mergedUser = {
+        ...user,
+        ...(user.role === "student"
+          ? { student: detail }
+          : { employer: detail }),
+      };
+
+      // 4️⃣ Cập nhật vào AuthContext
+      setUser(mergedUser);
+
+      // 5️⃣ Chuyển hướng về trang chủ
       navigate("/");
     } catch (err: any) {
       setError(err.response?.data?.message || "Đăng nhập thất bại");

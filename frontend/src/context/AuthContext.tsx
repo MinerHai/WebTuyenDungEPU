@@ -20,6 +20,7 @@ interface User {
     companyAddress?: string;
     website?: string;
     phoneNumber: string;
+    description: string;
   };
 }
 

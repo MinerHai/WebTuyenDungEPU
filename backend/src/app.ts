@@ -5,8 +5,12 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import connectDB from "./config/db";
+
 import authRoute from "./routes/auth-route";
 import userRoute from "./routes/user-route";
+import jobRoute from "./routes/job-route";
+import applicationRoute from "./routes/application-route";
+
 const app = express();
 
 // ============ Middlewares ============
@@ -25,6 +29,8 @@ connectDB();
 // ============ Routes ============
 app.use("/api/user", userRoute);
 app.use("/api/auth", authRoute);
+app.use("/api/jobs", jobRoute);
+app.use("/api/applications", applicationRoute);
 // ============ Root test route ============
 
 app.get("/", (req, res) => {

@@ -153,6 +153,92 @@
   text-decoration: underline;
 }
 
+.profile-right-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.info-card input,
+.info-card textarea {
+  width: 100%;
+  margin: 0.4rem 0;
+  padding: 0.6rem;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+
+.btn-save {
+  background: #3b82f6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-cancel {
+  background: #ef4444;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-save:hover,
+.btn-cancel:hover {
+  opacity: 0.9;
+}
+
+
+/* --- CV Section --- */
+/* --- CV Preview --- */
+.cv-section {
+  margin-top: 1rem;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.cv-label {
+  font-weight: 600;
+  color: #111;
+  min-width: 60px;
+}
+
+.cv-preview-card {
+  flex: 1;
+  background: var(--light-bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cv-frame {
+  width: 100%;
+  height: 500px;
+  border: none;
+  border-radius: 8px;
+}
+
+.cv-image {
+  max-width: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.cv-empty {
+  color: #777;
+  font-style: italic;
+}
+
 /* --- Responsive --- */
 @media (max-width: 900px) {
   .profile-container {

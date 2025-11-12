@@ -79,6 +79,7 @@ export const updateStudentProfile = async (req: AuthRequest, res: Response) => {
     }
 
     // Cập nhật thông tin khác
+    student.studentId = data.studentId || student.major;
     student.major = data.major || student.major;
     student.className = data.className || student.className;
     student.gpa = data.gpa ?? student.gpa;

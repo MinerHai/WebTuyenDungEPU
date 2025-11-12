@@ -20,6 +20,7 @@ export default function RegisterPage() {
     companyAddress: "",
     website: "",
     phoneNumber: "",
+    studentId: "",
   });
 
   const [error, setError] = useState("");
@@ -98,6 +99,16 @@ export default function RegisterPage() {
 
           {form.role === "student" && (
             <div className="role-section fade-in">
+              <div className="form-group">
+                <label>Mã sinh viên</label>
+                <input
+                  name="studentId"
+                  placeholder="Mã sinh viên"
+                  value={form.studentId}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
               <div className="form-group">
                 <label>Chuyên ngành</label>
                 <input

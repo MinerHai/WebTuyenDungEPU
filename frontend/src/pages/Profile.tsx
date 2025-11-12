@@ -2,11 +2,14 @@ import { useRef, useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import "../assets/styles/profile.css";
 import { userApi } from "../api/userApi";
+import EmployerProfileForm from "../components/EmployerProfileForm";
+import StudentProfileForm from "../components/StudentProfileFrom";
 
 export default function Profile() {
   const { user, setUser } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [loading, setLoading] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
   if (!user) {
     return (
@@ -14,10 +17,8 @@ export default function Profile() {
     );
   }
 
-  const handleAvatarClick = () => {
-    fileInputRef.current?.click();
-  };
-
+  // Avatar
+  const handleAvatarClick = () => fileInputRef.current?.click();
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -69,6 +70,7 @@ export default function Profile() {
               onChange={handleFileChange}
             />
           </div>
+
           <h2 className="profile-name">{user.username}</h2>
           <p className="profile-role">
             {user.role === "student" ? "Sinh viên" : "Nhà tuyển dụng"}
@@ -81,66 +83,40 @@ export default function Profile() {
         </div>
 
         <div className="profile-right">
-          <h3 className="section-title">Thông tin cơ bản</h3>
-          <div className="info-card">
-            {user.role === "student" ? (
-              <>
-                <p>
-                  <span>Mã sinh viên:</span> {user.student?.studentId || "—"}
-                </p>
-                <p>
-                  <span>Lớp:</span> {user.student?.className || "—"}
-                </p>
-                <p>
-                  <span>Chuyên ngành:</span> {user.student?.major || "—"}
-                </p>
-                <p>
-                  <span>GPA:</span> {user.student?.gpa || "—"}
-                </p>
-                <p>
-                  <span>Mô tả bản thân:</span>{" "}
-                  {user.student?.description || "Chưa có"}
-                </p>
-                <p>
-                  <span>CV:</span>{" "}
-                  {user.student?.cv?.secure_url ? (
-                    <a
-                      href={user.student?.cv.secure_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Xem CV
-                    </a>
-                  ) : (
-                    "Chưa tải lên"
-                  )}
-                </p>
-              </>
+          <div className="profile-right-header">
+            <h3 className="section-title">Thông tin cơ bản</h3>
+            {!editMode ? (
+              <button className="btn-primary" onClick={() => setEditMode(true)}>
+                ✏️ Chỉnh sửa hồ sơ
+              </button>
             ) : (
-              <>
-                <p>
-                  <span>Tên công ty:</span> {user.employer?.companyName || "—"}
-                </p>
-                <p>
-                  <span>Địa chỉ:</span> {user.employer?.companyAddress || "—"}
-                </p>
-                <p>
-                  <span>Website:</span>{" "}
-                  {user.employer?.website ? (
-                    <a href={user.employer?.website} target="_blank">
-                      {user.employer?.website}
-                    </a>
-                  ) : (
-                    "Chưa có"
-                  )}
-                </p>
-                <p>
-                  <span>Số điện thoại:</span>{" "}
-                  {user.employer?.phoneNumber || "—"}
-                </p>
-              </>
+              <div style={{ display: "flex", gap: "1rem" }}>
+                <button
+                  className="btn-cancel"
+                  onClick={() => setEditMode(false)}
+                >
+                  ❌ Hủy
+                </button>
+              </div>
             )}
           </div>
+
+          {/* --- FORM / VIEW --- */}
+          {user.role === "student" ? (
+            <StudentProfileForm
+              user={user}
+              editMode={editMode}
+              setUser={setUser}
+              setEditMode={setEditMode}
+            />
+          ) : (
+            <EmployerProfileForm
+              user={user}
+              editMode={editMode}
+              setUser={setUser}
+              setEditMode={setEditMode}
+            />
+          )}
         </div>
       </div>
     </div>

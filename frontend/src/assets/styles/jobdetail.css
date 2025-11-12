@@ -1,0 +1,48 @@
+.applicant-title {
+  margin-top: 2rem;
+  font-size: 1.3rem;
+  color: #005fa3;
+}
+
+.applicant-list {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.applicant-card {
+  display: flex;
+  justify-content: space-between;
+  background: #fefefe;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 1rem;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.applicant-info h4 {
+  margin: 0 0 0.3rem 0;
+  color: #0072ce;
+}
+
+.cv-link {
+  display: inline-block;
+  margin-top: 0.4rem;
+  color: #0072ce;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cv-link:hover {
+  text-decoration: underline;
+}
+
+.applicant-actions select {
+  padding: 0.4rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  background: #f9fafb;
+  cursor: pointer;
+}

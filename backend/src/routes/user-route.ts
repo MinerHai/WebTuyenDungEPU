@@ -15,9 +15,6 @@ console.log("✅ User routes loaded"); // 👈 thêm dòng này ở đầu file
  * Đổi avatar người dùng (mọi role)
  */
 router.patch("/avatar", AuthMiddleware, upload.single("avatar"), changeAvatar);
-router.patch("/he", AuthMiddleware, (req: any, res: any) => {
-  return res.status(200).json({ message: "Ok" });
-});
 
 /**
  * Sinh viên cập nhật hồ sơ (bao gồm CV)
