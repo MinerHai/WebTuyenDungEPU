@@ -1,0 +1,23 @@
+.homepage {
+  width: 100%;
+}
+
+.welcome-box {
+  padding: 30px 60px;
+}
+
+.job-section {
+  padding: 30px 60px;
+}
+
+.job-list {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.view-more {
+  margin-top: 10px;
+  color: #0072ce;
+  cursor: pointer;
+}

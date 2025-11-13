@@ -59,7 +59,7 @@ export default function Navbar() {
 
         {/* MENU */}
         <nav className="navbar-center">
-          <NavLink to="/">Việc làm</NavLink>
+          <NavLink to="/">Trang chủ</NavLink>
           <NavLink to="/employers">Nhà tuyển dụng</NavLink>
           <NavLink to="/jobs">Việc làm</NavLink>
           <NavLink to="/contact">Liên hệ</NavLink>
@@ -100,16 +100,24 @@ export default function Navbar() {
                   } chevron`}
                 ></i>
               </div>
-
               {openMenu && (
                 <div className="dropdown-menu">
                   <button onClick={() => navigate("/profile")}>
                     <i className="fa-regular fa-id-card"></i> Trang cá nhân
                   </button>
-                  <button onClick={() => navigate("/employer/jobs")}>
-                    <i className="fa-regular fa-id-card"></i> Danh sách bài
-                    tuyển dụng
-                  </button>
+                  {user.role === "employer" && (
+                    <button onClick={() => navigate("/employer/jobs")}>
+                      <i className="fa-regular fa-id-card"></i> Danh sách bài
+                      tuyển dụng
+                    </button>
+                  )}
+
+                  {user.role === "student" && (
+                    <button onClick={() => navigate("/student/applied-jobs")}>
+                      <i className="fa-regular fa-id-card"></i> Danh sách đơn
+                      xin tuyển
+                    </button>
+                  )}
                   <button onClick={handleLogout}>
                     <i className="fa-solid fa-right-from-bracket"></i> Đăng xuất
                   </button>

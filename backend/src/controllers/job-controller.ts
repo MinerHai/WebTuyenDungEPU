@@ -59,7 +59,7 @@ export const getJobById = async (req: Request, res: Response) => {
   try {
     const job = await Job.findById(req.params.id).populate(
       "owner",
-      "username email role"
+      "username email role avatar"
     );
     if (!job) return res.status(404).json({ message: "Job not found" });
     res.json(job);
@@ -73,7 +73,7 @@ export const getJobById = async (req: Request, res: Response) => {
 export const createJob = async (req: Request, res: Response) => {
   try {
     const ownerId = req.user?.userId; // lấy từ middleware auth
-    console.log("OWNER ID", ownerId);
+
     const newJob = new Job({
       ...req.body,
       owner: ownerId,

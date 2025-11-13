@@ -4,7 +4,7 @@ import "../assets/styles/profile.css";
 import { userApi } from "../api/userApi";
 import EmployerProfileForm from "../components/EmployerProfileForm";
 import StudentProfileForm from "../components/StudentProfileFrom";
-
+import banner from "../assets/banner.png";
 export default function Profile() {
   const { user, setUser } = useAuth();
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -40,7 +40,7 @@ export default function Profile() {
   return (
     <div className="profile-page">
       <div className="profile-header">
-        <img src="/banner-epu.jpg" alt="Banner" className="profile-banner" />
+        <img src={banner} alt="Banner" className="profile-banner" />
       </div>
 
       <div className="profile-container">

@@ -4,7 +4,7 @@ import "../assets/styles/jobform.css";
 interface JobFormProps {
   onSubmit: (data: any) => void;
   loading?: boolean;
-  initialValues?: any; // ✅ thêm dòng này để cho phép nhận dữ liệu khi edit
+  initialValues?: any;
 }
 
 export default function JobForm({
@@ -19,10 +19,12 @@ export default function JobForm({
     salaryFrom: "",
     salaryTo: "",
     jobType: "fulltime",
+    requirements: "",
+    benefits: "",
     deadline: "",
   });
 
-  // ✅ Khi có initialValues (trang Edit), đổ dữ liệu vào form
+  // ✅ Khi có initialValues (dành cho trang Edit)
   useEffect(() => {
     if (initialValues) {
       setForm({
@@ -32,8 +34,14 @@ export default function JobForm({
         salaryFrom: initialValues.salaryFrom || "",
         salaryTo: initialValues.salaryTo || "",
         jobType: initialValues.jobType || "fulltime",
+        requirements: initialValues.requirements
+          ? initialValues.requirements.join("\n")
+          : "",
+        benefits: initialValues.benefits
+          ? initialValues.benefits.join("\n")
+          : "",
         deadline: initialValues.deadline
-          ? initialValues.deadline.slice(0, 10) // định dạng yyyy-mm-dd
+          ? initialValues.deadline.slice(0, 10)
           : "",
       });
     }
@@ -50,15 +58,30 @@ export default function JobForm({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(form);
+
+    // ✅ Chuẩn hóa dữ liệu trước khi gửi
+    const dataToSend = {
+      ...form,
+      salaryFrom: form.salaryFrom ? Number(form.salaryFrom) : undefined,
+      salaryTo: form.salaryTo ? Number(form.salaryTo) : undefined,
+      requirements: form.requirements
+        ? form.requirements.split("\n").map((s) => s.trim())
+        : [],
+      benefits: form.benefits
+        ? form.benefits.split("\n").map((s) => s.trim())
+        : [],
+      deadline: form.deadline ? new Date(form.deadline) : undefined,
+    };
+
+    onSubmit(dataToSend);
   };
 
   return (
     <form className="job-form" onSubmit={handleSubmit}>
-      <label>Tiêu đề công việc</label>
+      <label>Tiêu đề công việc *</label>
       <input name="title" value={form.title} onChange={handleChange} required />
 
-      <label>Mô tả công việc</label>
+      <label>Mô tả công việc *</label>
       <textarea
         name="description"
         value={form.description}
@@ -90,8 +113,25 @@ export default function JobForm({
         <option value="fulltime">Full-time</option>
         <option value="parttime">Part-time</option>
         <option value="intern">Intern</option>
-        <option value="contract">Contract</option>
       </select>
+
+      <label>Yêu cầu công việc (mỗi dòng 1 mục)</label>
+      <textarea
+        name="requirements"
+        value={form.requirements}
+        onChange={handleChange}
+        rows={3}
+        placeholder="VD: Có kinh nghiệm ReactJS ít nhất 6 tháng..."
+      />
+
+      <label>Quyền lợi (mỗi dòng 1 mục)</label>
+      <textarea
+        name="benefits"
+        value={form.benefits}
+        onChange={handleChange}
+        rows={3}
+        placeholder="VD: Thưởng lễ tết, Du lịch công ty..."
+      />
 
       <label>Hạn nộp hồ sơ</label>
       <input

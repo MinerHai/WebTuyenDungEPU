@@ -11,8 +11,7 @@ import { Student } from "../models/Student";
 export const applyJob = async (req: Request, res: Response) => {
   try {
     const jobId = req.params.id;
-    const applicantId = req.user?._id;
-    const { coverLetter } = req.body;
+    const applicantId = req.user?.userId;
 
     // 1️⃣ Check job tồn tại & còn hiệu lực
     const job = await Job.findById(jobId);
@@ -43,7 +42,6 @@ export const applyJob = async (req: Request, res: Response) => {
         },
       },
       resume: studentProfile.cv, // ✅ CV hiện tại của student
-      coverLetter,
       status: "applied",
     });
 
@@ -55,7 +53,7 @@ export const applyJob = async (req: Request, res: Response) => {
     if (err.code === 11000)
       return res
         .status(409)
-        .json({ message: "You have already applied for this job." });
+        .json({ message: "Bạn đã ứng tuyển vị trí này rồi ." });
     console.error(err);
     res.status(500).json({ message: "Server error." });
   }
@@ -67,7 +65,7 @@ export const applyJob = async (req: Request, res: Response) => {
 export const withdrawApplication = async (req: Request, res: Response) => {
   try {
     const jobId = req.params.id;
-    const applicantId = req.user?._id;
+    const applicantId = req.user?.userId;
 
     const application = await Application.findOneAndUpdate(
       { job: jobId, applicant: applicantId },
@@ -94,7 +92,7 @@ export const withdrawApplication = async (req: Request, res: Response) => {
 export const getApplicantsForJob = async (req: Request, res: Response) => {
   try {
     const jobId = req.params.id;
-    const employerId = req.user?._id;
+    const employerId = req.user?.userId;
 
     // 1️⃣ Kiểm tra job có thuộc về employer không
     const job = await Job.findById(jobId);
@@ -116,7 +114,6 @@ export const getApplicantsForJob = async (req: Request, res: Response) => {
         appliedAt: a.createdAt,
         applicant: a.applicantSnapshot || a.applicant,
         resume: a.resume, //  frontend dùng secure_url để xem CV
-        coverLetter: a.coverLetter,
       })),
     });
   } catch (err) {
@@ -128,19 +125,20 @@ export const getApplicantsForJob = async (req: Request, res: Response) => {
 export const updateApplicationStatus = async (req: Request, res: Response) => {
   try {
     const appId = req.params.appId;
-    const employerId = req.user?._id;
+    const employerId = req.user?.userId;
     const { status } = req.body;
-
+    console.log("Status update requested:", status);
     if (!["shortlisted", "rejected", "hired"].includes(status))
-      return res.status(400).json({ message: "Invalid status value." });
+      return res.status(400).json({ message: "Trạng thái không hợp lệ." });
 
     // 1️⃣ Lấy application + job
     const application = await Application.findById(appId).populate("job");
     if (!application)
-      return res.status(404).json({ message: "Application not found." });
+      return res.status(404).json({ message: "Không tìm thấy đơn ứng tuyển." });
 
     const job = await Job.findById(application.job);
-    if (!job) return res.status(404).json({ message: "Job not found." });
+    if (!job)
+      return res.status(404).json({ message: "Không tìm thấy công việc." });
 
     // 2️⃣ Check quyền
     if (job.owner.toString() !== employerId.toString())
@@ -166,7 +164,7 @@ export const updateApplicationStatus = async (req: Request, res: Response) => {
 export const getApplicantDetail = async (req: Request, res: Response) => {
   try {
     const { id: jobId, appId } = req.params;
-    const employerId = req.user?._id;
+    const employerId = req.user?.userId;
 
     const job = await Job.findById(jobId);
     if (!job) return res.status(404).json({ message: "Job not found." });
@@ -205,13 +203,13 @@ export const getApplicantDetail = async (req: Request, res: Response) => {
 //  Student xem danh sách các job đã apply
 export const getMyApplications = async (req: Request, res: Response) => {
   try {
-    const applicantId = req.user?._id;
+    const applicantId = req.user?.userId;
 
     const applications = await Application.find({ applicant: applicantId })
       .populate({
         path: "job",
         select: "title location salaryFrom salaryTo jobType owner",
-        populate: { path: "owner", select: "companyName logo" },
+        populate: { path: "owner", select: "avatar username" },
       })
       .sort({ createdAt: -1 })
       .lean();

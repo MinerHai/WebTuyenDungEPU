@@ -21,7 +21,6 @@ export interface IApplication extends Document {
       gpa?: number;
     };
   };
-  coverLetter?: string;
   resume?: { public_id: string; secure_url: string };
   status: ApplicationStatus;
   createdAt: Date;
@@ -45,7 +44,6 @@ const applicationSchema = new Schema<IApplication>(
         gpa: { type: Number },
       },
     },
-    coverLetter: { type: String, default: "" },
     resume: {
       public_id: { type: String, default: "" },
       secure_url: { type: String, default: "" },

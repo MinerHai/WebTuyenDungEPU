@@ -11,6 +11,7 @@ import EditJobPage from "../pages/EditJobPage";
 import CreateJobPage from "../pages/CreateJobPage";
 import EmployerJobDetailPage from "../pages/EmployerJobDetailPage";
 import StudentJobDetailPage from "../pages/StudentJobDetailPage";
+import StudentAppliedJobsPage from "../pages/StudentAppliedJobsPage";
 
 export default function AppRoutes() {
   return (
@@ -47,6 +48,10 @@ export default function AppRoutes() {
         {/* Student */}
         <Route path="/jobs" element={<JobExplorePage />} />
         <Route path="/jobs/:id" element={<StudentJobDetailPage />} />
+        <Route
+          path="/student/applied-jobs"
+          element={<StudentAppliedJobsPage />}
+        />
       </Routes>
     </BrowserRouter>
   );
