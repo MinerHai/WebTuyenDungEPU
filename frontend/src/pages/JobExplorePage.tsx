@@ -21,7 +21,7 @@ export default function JobExplorePage() {
         location: filters.location || undefined,
         jobType: filters.jobType || undefined,
         page: pageNum,
-        limit: 6, // mỗi trang 6 job
+        limit: 6,
       };
       const res = await jobApi.getAll(params);
       setJobs(res.data);
@@ -82,42 +82,56 @@ export default function JobExplorePage() {
       <div className="job-list">
         {jobs.length > 0 ? (
           jobs.map((job) => (
-            <div className="job-card" key={job._id}>
-              <div className="job-top">
-                <img
-                  src={
-                    job.owner?.avatar?.secure_url ||
-                    "https://via.placeholder.com/60?text=Logo"
-                  }
-                  alt="company-logo"
-                  className="company-logo"
-                />
-                <div className="job-info">
-                  <h3 className="job-title">{job.title}</h3>
-                  <p className="company-name">{job.owner?.username}</p>
+            <div
+              key={job._id}
+              className="topcv-card"
+              onClick={() => navigate(`/jobs/${job._id}`)}
+            >
+              {/* Logo */}
+              <img
+                src={
+                  job.owner?.avatar?.secure_url ||
+                  "https://via.placeholder.com/80?text=Logo"
+                }
+                alt="Logo"
+                className="topcv-logo"
+              />
+
+              {/* Middle content */}
+              <div className="topcv-info">
+                <h3 className="topcv-title">{job.title}</h3>
+                <p className="topcv-company">{job.owner?.username}</p>
+
+                <div className="topcv-tags">
+                  <span className="tag-location">📍 {job.location}</span>
+                  {job.experience && (
+                    <span className="tag-exp">{job.experience}</span>
+                  )}
                 </div>
+
+                <p className="topcv-desc">
+                  {job.description?.slice(0, 120)}...
+                </p>
               </div>
 
-              <p className="job-desc">{job.description?.slice(0, 100)}...</p>
+              {/* Right panel */}
+              <div className="topcv-right">
+                <span className="topcv-salary">
+                  💰 {job.salaryFrom?.toLocaleString()} -{" "}
+                  {job.salaryTo?.toLocaleString()} VND
+                </span>
 
-              <div className="job-meta">
-                {job.salaryFrom && (
-                  <span className="salary">
-                    💰 {job.salaryFrom.toLocaleString()} -{" "}
-                    {job.salaryTo?.toLocaleString()} VND
-                  </span>
-                )}
-                <span className="location">📍 {job.location}</span>
-              </div>
-
-              <div className="job-footer">
-                <span className={`badge ${job.jobType}`}>{job.jobType}</span>
                 <button
-                  className="apply-btn"
-                  onClick={() => navigate(`/jobs/${job._id}`)}
+                  className="topcv-quick"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/jobs/${job._id}`);
+                  }}
                 >
-                  Xem chi tiết
+                  Xem nhanh
                 </button>
+
+                <span className="topcv-status">✔</span>
               </div>
             </div>
           ))
@@ -126,7 +140,6 @@ export default function JobExplorePage() {
         )}
       </div>
 
-      {/* ✅ Pagination */}
       {totalPages > 1 && (
         <div className="pagination">
           <button

@@ -60,9 +60,9 @@ export default function Navbar() {
         {/* MENU */}
         <nav className="navbar-center">
           <NavLink to="/">Trang chủ</NavLink>
-          <NavLink to="/employers">Nhà tuyển dụng</NavLink>
           <NavLink to="/jobs">Việc làm</NavLink>
-          <NavLink to="/contact">Liên hệ</NavLink>
+          <NavLink to="/employers">Nhà tuyển dụng</NavLink>
+          <NavLink to="/about">Giới thiệu</NavLink>
         </nav>
 
         {/* USER / CTA */}

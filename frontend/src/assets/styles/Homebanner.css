@@ -1,0 +1,186 @@
+/* wrapper background */
+.banner-wrapper {
+  width: 100%;
+  height: 420px;
+  background-image: url("../banner-epu.png"); /* đổi đường dẫn ảnh background */
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* Overlay top: title + search */
+.banner-overlay {
+  padding-top: 18px;
+  text-align: center;
+  pointer-events: none; /* để input/button trong overlay nếu cần override pointer-events */
+}
+
+.banner-title {
+  font-size: 28px;
+  font-weight: 800;
+  color: #111;
+  margin: 0;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  pointer-events: auto;
+}
+
+.search-box {
+  margin-top: 14px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  pointer-events: auto;
+}
+
+.search-box input {
+  padding: 12px 18px;
+  width: 520px;
+  border-radius: 50px;
+  border: 1px solid rgba(0,0,0,0.12);
+  font-size: 15px;
+  outline: none;
+  background: rgba(255,255,255,0.95);
+}
+
+.search-box button {
+  padding: 12px 22px;
+  border-radius: 50px;
+  background: #0b66ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+/* bottom area */
+.banner-bottom {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 120px);
+  display: flex;
+  justify-content: center;
+  align-items: center;  /* quan trọng để thẳng hàng */
+  gap: 300px; /* TĂNG KHOẢNG CÁCH — bạn chỉnh 60/80/100 tùy ý */
+}
+
+/* chung cho box */
+.box {
+  position: relative; /* cần cho absolute arrow */
+  background: white;
+  padding: 18px;
+  border-radius: 14px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  display: flex;
+  align-items: center;
+}
+
+/* left fixed size */
+.left-box-container {
+  width: 360px; /* cố định */
+  min-height: 180px;
+  box-sizing: border-box;
+  padding-left: 50px; /* để không che bởi arrow */
+  padding-right: 50px;
+}
+
+.left-box-container {
+  width: 300px;      /* hợp lý với list chữ */
+  min-height: 150px;
+  padding: 24px 50px; /* thêm space để không bị arrow che */
+  border-radius: 14px;
+  background: white;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+/* right flexible, to hơn */
+.right-box-container {
+  width: 560px; /* to hơn */
+  min-height: 190px;
+  box-sizing: border-box;
+  padding-left: 56px; /* space for left arrow */
+  padding-right: 56px; /* space for right arrow */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* image wrapper + image */
+.right-image-wrap {
+  width: 100%;
+  height: 170px;
+  border-radius: 12px;
+  overflow: hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+.right-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display:block;
+}
+
+/* arrow buttons positioned on sides of each box */
+.box-arrow-left,
+.box-arrow-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #ffffff;
+  border: 1px solid rgba(0,0,0,0.12);
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+}
+
+/* left arrow inside box on left edge */
+.left-box-container > .box-arrow-left {
+  left: -28px;
+}
+
+/* right arrow inside left box on right edge */
+.left-box-container > .box-arrow-right {
+  right: -28px;
+}
+
+/* arrows for right box */
+.right-box-container > .box-arrow-left {
+  left: -28px;
+}
+.right-box-container > .box-arrow-right {
+  right: -28px;
+}
+
+/* small hover */
+.box-arrow-left:hover,
+.box-arrow-right:hover {
+  background: #f3f6ff;
+}
+
+/* responsive (basic) */
+@media (max-width: 980px) {
+  .banner-bottom {
+    flex-direction: column;
+    gap: 18px;
+    width: calc(100% - 40px);
+    transform: translateX(0);
+    left: 20px;
+  }
+  .left-box-container, .right-box-container {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .right-image-wrap { height: 200px; }
+  .search-box input { width: 70%; }
+}

@@ -12,6 +12,8 @@ import CreateJobPage from "../pages/CreateJobPage";
 import EmployerJobDetailPage from "../pages/EmployerJobDetailPage";
 import StudentJobDetailPage from "../pages/StudentJobDetailPage";
 import StudentAppliedJobsPage from "../pages/StudentAppliedJobsPage";
+import EmployerPage from "../pages/EmployerPage";
+import AboutPage from "../pages/AboutPage";
 
 export default function AppRoutes() {
   return (
@@ -27,6 +29,23 @@ export default function AppRoutes() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/employers"
+          element={
+            <ProtectedRoute>
+              <EmployerPage />
+            </ProtectedRoute>
+          }
+        ></Route>
+
+        <Route
+          path="/about"
+          element={
+            <ProtectedRoute>
+              <AboutPage />
+            </ProtectedRoute>
+          }
+        ></Route>
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
@@ -40,17 +59,63 @@ export default function AppRoutes() {
         />
         {/* Employer */}
 
-        <Route path="/employer/jobs/:id" element={<EmployerJobDetailPage />} />
-        <Route path="/employer/jobs" element={<EmployerJobListPage />} />
-        <Route path="/employer/jobs/create" element={<CreateJobPage />} />
-        <Route path="/employer/jobs/edit/:id" element={<EditJobPage />} />
+        <Route
+          path="/employer/jobs/:id"
+          element={
+            <ProtectedRoute>
+              <EmployerJobDetailPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/jobs"
+          element={
+            <ProtectedRoute>
+              <EmployerJobListPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/jobs/create"
+          element={
+            <ProtectedRoute>
+              <CreateJobPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/employer/jobs/edit/:id"
+          element={
+            <ProtectedRoute>
+              <EditJobPage />
+            </ProtectedRoute>
+          }
+        />
 
         {/* Student */}
-        <Route path="/jobs" element={<JobExplorePage />} />
-        <Route path="/jobs/:id" element={<StudentJobDetailPage />} />
+        <Route
+          path="/jobs"
+          element={
+            <ProtectedRoute>
+              <JobExplorePage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/jobs/:id"
+          element={
+            <ProtectedRoute>
+              <StudentJobDetailPage />
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/student/applied-jobs"
-          element={<StudentAppliedJobsPage />}
+          element={
+            <ProtectedRoute>
+              <StudentAppliedJobsPage />
+            </ProtectedRoute>
+          }
         />
       </Routes>
     </BrowserRouter>
